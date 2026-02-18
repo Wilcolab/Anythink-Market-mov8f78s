@@ -310,22 +310,33 @@ router.post("/:item/comments", auth.required, function(req, res, next) {
     .catch(next);
 });
 
-router.delete("/:item/comments/:comment", auth.required, function(
+router.delete("/:item/comments/:comment", auth.required, async function(
   req,
   res,
   next
 ) {
-  req.item.comments.remove(req.comment._id);
-  req.item
-    .save()
-    .then(
-      Comment.find({ _id: req.comment._id })
-        .remove()
-        .exec()
-    )
-    .then(function() {
-      res.sendStatus(204);
+  try {
+    if (req.comment.seller.toString() !== req.payload.id.toString()) {
+      return res.sendStatus(403);
+    }
+
+    const commentId = req.comment._id.toString();
+    const hasComment = req.item.comments.some(function(id) {
+      return id.toString() === commentId;
     });
+
+    if (!hasComment) {
+      return res.sendStatus(404);
+    }
+
+    req.item.comments.remove(req.comment._id);
+    await req.item.save();
+    await Comment.deleteOne({ _id: req.comment._id }).exec();
+
+    return res.sendStatus(204);
+  } catch (err) {
+    return next(err);
+  }
 });
 
 module.exports = router;
