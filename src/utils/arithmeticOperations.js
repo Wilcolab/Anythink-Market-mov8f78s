@@ -35,6 +35,17 @@ function divide(a, b) {
     return a / b;
 }
 
+function modulo(a, b) {
+    validateFiniteNumber(a, 'a');
+    validateFiniteNumber(b, 'b');
+
+    if (b === 0) {
+        return null;
+    }
+
+    return a % b;
+}
+
 function squareRoot(value) {
     validateFiniteNumber(value, 'value');
 
@@ -50,6 +61,7 @@ var operations = {
     subtract: subtract,
     multiply: multiply,
     divide: divide,
+    modulo: modulo,
     squareRoot: squareRoot
 };
 
@@ -70,6 +82,7 @@ module.exports = {
     subtract: subtract,
     multiply: multiply,
     divide: divide,
+    modulo: modulo,
     squareRoot: squareRoot,
     calculate: calculate,
     operations: operations
