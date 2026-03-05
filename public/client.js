@@ -33,6 +33,12 @@ function calculate(operand1, operand2, operation) {
         case '/':
             uri += "?operation=divide";
             break;
+        case '^':
+            uri += "?operation=power";
+            break;
+        case 'sqrt':
+            uri += "?operation=sqrt";
+            break;
         default:
             setError();
             return;
@@ -111,6 +117,12 @@ function signPressed() {
 }
 
 function operationPressed(op) {
+    if (op == 'sqrt') {
+        calculate(getValue(), 0, op);
+        state = states.complete;
+        return;
+    }
+
     operand1 = getValue();
     operation = op;
     state = states.operator;
@@ -138,7 +150,7 @@ document.addEventListener('keypress', (event) => {
         numberPressed(event.key);
     } else if (event.key == '.') {
         decimalPressed();
-    } else if (event.key.match(/^[-*+/]$/)) {
+    } else if (event.key.match(/^[-*+/^]$/)) {
         operationPressed(event.key);
     } else if (event.key == '=') {
         equalPressed();

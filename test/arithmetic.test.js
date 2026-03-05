@@ -93,8 +93,24 @@ describe('Arithmetic', function () {
         });
     });
 
-// TODO: Challenge #1
- 
+    describe('Subtraction', function () {
+        it('subtracts two positive integers', function (done) {
+            request.get('/arithmetic?operation=subtract&operand1=42&operand2=21')
+                .expect(200)
+                .end(function (err, res) {
+                    expect(res.body).to.eql({ result: 21 });
+                    done();
+                });
+        });
+        it('subtracts a larger value resulting in a negative number', function (done) {
+            request.get('/arithmetic?operation=subtract&operand1=21&operand2=42')
+                .expect(200)
+                .end(function (err, res) {
+                    expect(res.body).to.eql({ result: -21 });
+                    done();
+                });
+        });
+    });
 
     describe('Multiplication', function () {
         it('multiplies two positive integers', function (done) {
@@ -201,6 +217,28 @@ describe('Arithmetic', function () {
                 .expect(200)
                 .end(function (err, res) {
                     expect(res.body).to.eql({ result: null });
+                    done();
+                });
+        });
+    });
+
+    describe('Power', function () {
+        it('raises an integer base to an integer exponent', function (done) {
+            request.get('/arithmetic?operation=power&operand1=2&operand2=8')
+                .expect(200)
+                .end(function (err, res) {
+                    expect(res.body).to.eql({ result: 256 });
+                    done();
+                });
+        });
+    });
+
+    describe('Square Root', function () {
+        it('returns square root with only operand1', function (done) {
+            request.get('/arithmetic?operation=sqrt&operand1=81')
+                .expect(200)
+                .end(function (err, res) {
+                    expect(res.body).to.eql({ result: 9 });
                     done();
                 });
         });
