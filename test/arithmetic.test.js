@@ -231,6 +231,33 @@ describe('Arithmetic', function () {
                     done();
                 });
         });
+
+        it('returns 1 when exponent is zero', function (done) {
+            request.get('/arithmetic?operation=power&operand1=12&operand2=0')
+                .expect(200)
+                .end(function (err, res) {
+                    expect(res.body).to.eql({ result: 1 });
+                    done();
+                });
+        });
+
+        it('supports negative exponents', function (done) {
+            request.get('/arithmetic?operation=power&operand1=2&operand2=-2')
+                .expect(200)
+                .end(function (err, res) {
+                    expect(res.body).to.eql({ result: 0.25 });
+                    done();
+                });
+        });
+
+        it('supports negative bases', function (done) {
+            request.get('/arithmetic?operation=power&operand1=-2&operand2=3')
+                .expect(200)
+                .end(function (err, res) {
+                    expect(res.body).to.eql({ result: -8 });
+                    done();
+                });
+        });
     });
 
     describe('Modulo', function () {
