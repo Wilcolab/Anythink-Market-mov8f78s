@@ -17,6 +17,14 @@ exports.calculate = function(req, res) {
     'multiply': function(a, b) { return Number(a) * Number(b); },
     'divide':   function(a, b) { return Number(a) / Number(b); },
     'power':    function(a, b) { return Math.pow(Number(a), Number(b)); },
+    'modulo':   function(a, b) {
+      if (Number(b) === 0) {
+        return null;
+      }
+
+      return Number(a) % Number(b);
+    },
+    'percent':  function(a, b) { return Number(a) * Number(b) / 100; },
     'sqrt':     function(a) { return Math.sqrt(Number(a)); }
   };
 

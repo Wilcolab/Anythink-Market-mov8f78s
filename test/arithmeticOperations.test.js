@@ -26,6 +26,14 @@ describe('Arithmetic Operations Module', function () {
             expect(arithmeticOperations.divide(20, 0)).to.equal(null);
         });
 
+        it('returns modulo remainder for integer operands', function () {
+            expect(arithmeticOperations.modulo(20, 6)).to.equal(2);
+        });
+
+        it('returns null when modulo by zero', function () {
+            expect(arithmeticOperations.modulo(20, 0)).to.equal(null);
+        });
+
         it('returns the square root for positive input', function () {
             expect(arithmeticOperations.squareRoot(81)).to.equal(9);
         });
@@ -46,8 +54,8 @@ describe('Arithmetic Operations Module', function () {
 
         it('throws for unsupported operations', function () {
             expect(function () {
-                arithmeticOperations.calculate('modulo', 10, 3);
-            }).to.throw('Unsupported operation: modulo');
+                arithmeticOperations.calculate('moduloo', 10, 3);
+            }).to.throw('Unsupported operation: moduloo');
         });
     });
 

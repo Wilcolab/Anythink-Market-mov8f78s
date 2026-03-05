@@ -233,6 +233,26 @@ describe('Arithmetic', function () {
         });
     });
 
+    describe('Modulo', function () {
+        it('returns remainder for integer operands', function (done) {
+            request.get('/arithmetic?operation=modulo&operand1=10&operand2=3')
+                .expect(200)
+                .end(function (err, res) {
+                    expect(res.body).to.eql({ result: 1 });
+                    done();
+                });
+        });
+
+        it('returns null for modulo by zero', function (done) {
+            request.get('/arithmetic?operation=modulo&operand1=10&operand2=0')
+                .expect(200)
+                .end(function (err, res) {
+                    expect(res.body).to.eql({ result: null });
+                    done();
+                });
+        });
+    });
+
     describe('Square Root', function () {
         it('returns square root with only operand1', function (done) {
             request.get('/arithmetic?operation=sqrt&operand1=81')
