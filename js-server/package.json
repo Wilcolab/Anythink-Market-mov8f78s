@@ -1,0 +1,20 @@
+{
+  "name": "js-server",
+  "version": "1.0.0",
+  "description": "Simple Express server",
+  "main": "src/index.js",
+  "scripts": {
+    "start": "nodemon src/index.js",
+    "dev": "nodemon src/index.js",
+    "prod": "node src/index.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.21.0"
+  },
+  "devDependencies": {
+    "nodemon": "^3.0.2"
+  }
+}
